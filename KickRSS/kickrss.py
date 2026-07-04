@@ -15,7 +15,7 @@ from cachetools import TTLCache, cached
 from flask import Flask, abort, request
 
 
-VERSION = "0.1.0"
+VERSION = "0.1.1"
 CHANNEL_FILTER = re.compile(r"^[0-9a-zA-Z_][0-9a-zA-Z_-]{2,38}$")
 RESERVED_CHANNELS = {
     "about",
@@ -284,8 +284,6 @@ def render_rss(channel, channel_info, items, add_live):
         "rss",
         {
             "version": "2.0",
-            "xmlns:atom": "http://www.w3.org/2005/Atom",
-            "xmlns:media": "http://search.yahoo.com/mrss/",
         },
     )
     channel_el = ET.SubElement(rss, "channel")
@@ -403,6 +401,8 @@ def format_duration(duration):
     if not isinstance(duration, (int, float)) and not str(duration).isdigit():
         return str(duration)
     seconds = int(duration)
+    if seconds > 86400:
+        seconds = seconds // 1000
     hours = seconds // 3600
     minutes = (seconds % 3600) // 60
     seconds = seconds % 60

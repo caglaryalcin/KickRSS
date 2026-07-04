@@ -4,7 +4,7 @@ KickRSS is a small self-hostable web service that turns Kick channel pages into 
 
 Kick does not provide official RSS feeds. This service fetches Kick's public web endpoints, builds RSS 2.0 XML, and caches responses for a short time so feed readers can poll it safely.
 
-Current version: `0.1.0`
+Current version: `0.1.1`
 
 ## Usage
 
@@ -53,6 +53,11 @@ With this architecture the FreshRSS extension can be a regular user extension, b
 Kick's public web API is not an official RSS API and may block server-side requests or change without notice. The endpoint list and JSON parsing are intentionally kept in one file.
 
 ## Changelog
+
+### 0.1.1
+
+- Fixed duplicated RSS namespace attributes.
+- Treated large Kick video duration values as milliseconds.
 
 ### 0.1.0
 
